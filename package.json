@@ -1,0 +1,24 @@
+{
+  "name": "javascript-2-ca",
+  "version": "1.0.0",
+  "description": "CA for the JavaScript-2 course. Application consisting of ability to create, read, update and delete social posts from the Noroff API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmiSan14/JavaScript-2-CA.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/EmiSan14/JavaScript-2-CA/issues"
+  },
+  "homepage": "https://github.com/EmiSan14/JavaScript-2-CA#readme",
+  "dependencies": {
+    "dotenv": "^18.0.10"
+  }
+}
