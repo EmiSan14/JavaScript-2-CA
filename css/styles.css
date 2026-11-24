@@ -8,7 +8,82 @@ img {
   width: 100px;
 }
 
+header,
+main {
+  margin-left: 70px;
+  margin-right: 70px;
+}
+
 .navigation {
+  gap: 5px;
+}
+
+.navigation ul {
   display: flex;
   gap: 5px;
+}
+
+.navigation li {
+  list-style-type: none;
+}
+
+#feedContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.singlePost {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #d9d9d9;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.singlePost h2 {
+  font-size: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-bottom: 15px;
+}
+
+.singlePost p {
+  font-size: 14px;
+  font-family:
+    "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  word-break: break-all;
+}
+
+.singlePost img {
+  align-self: flex-end;
+}
+
+#buttonContainerFeed {
+  position: sticky;
+  bottom: 10px;
+  width: 30%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+#buttonContainerFeed button {
+  padding: 4px;
+  text-transform: uppercase;
+  background-color: #2b2b2b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+#buttonContainerFeed button:hover {
+  background-color: black;
+  cursor: pointer;
+}
+
+#buttonContainerFeed button:disabled {
+  background-color: #969595;
+  cursor: default;
 }

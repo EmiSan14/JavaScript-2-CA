@@ -1,6 +1,5 @@
-export async function apiFetch() {
+export async function apiFetch(endpoint, page) {
   const URL = "https://v2.api.noroff.dev/social";
-  const endpoint = "/posts";
   const apiKey = "";
   const accessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRW1pU2FuMTQiLCJlbWFpbCI6ImVtaXNhbjA2OTUyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzk1NDQ3MjkwfQ.1JETIUSvotcSZgkvx84Djz4xHRx6mvSHg42JkAGQDjc";
@@ -12,11 +11,16 @@ export async function apiFetch() {
       "X-Noroff-API-Key": apiKey,
     },
   };
+  console.log(page);
 
   try {
-    const response = await fetch(`${URL}${endpoint}`, options);
+    const response = await fetch(
+      `${URL}${endpoint}?limit=100&page=${page}`,
+      options,
+    );
     const data = await response.json();
-    return data.data;
+    console.log("meta:", data.meta);
+    return data;
   } catch (error) {
     console.log("Error message:", error);
   }
