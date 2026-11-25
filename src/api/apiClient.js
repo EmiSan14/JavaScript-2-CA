@@ -23,3 +23,35 @@ export async function apiFetch(endpoint, page) {
     console.log("Error message:", error);
   }
 }
+
+export async function apiLoginOrRegisterAttempt(
+  endpoint,
+  email,
+  password,
+  name,
+) {
+  const URL = "https://v2.api.noroff.dev/";
+  const credentials = {
+    email: email,
+    password: password,
+  };
+  if (name) {
+    const { name: name, ...credentials } = credentials;
+  }
+  console.log("credentials:", credentials);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  };
+
+  try {
+    const response = await fetch(`${URL}${endpoint}`, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("Error message:", error);
+  }
+}

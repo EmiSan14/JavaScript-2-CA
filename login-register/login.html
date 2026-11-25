@@ -17,8 +17,45 @@
         </ul>
       </nav>
     </header>
+
     <main>
-      <h1>Login</h1>
+      <section id="login-page">
+        <h1>Login Credentials</h1>
+        <form class="form-login">
+          <label for="email-login-page" class="hidden">e-mail</label>
+          <input
+            type="email"
+            name="email-login-page"
+            id="email-login-page"
+            placeholder="E-Mail"
+            title="A registered @stud.noroff.no email-address"
+            pattern=".*@stud.noroff.no"
+            required
+          />
+          <label for="password-login-page" class="hidden">password</label>
+          <input
+            type="password"
+            name="password-login-page"
+            id="password-login-page"
+            placeholder="Password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            required
+          />
+          <label for="login-submit" class="hidden">submit</label>
+          <input
+            type="submit"
+            name="login-submit"
+            class="uppercase"
+            id="login-submit"
+            value="log in"
+          />
+          <p class="text-align-center" id="log-to-reg-text">
+            Don't already have an account? Sign up
+            <a href="register.html">here</a>
+          </p>
+        </form>
+      </section>
     </main>
+    <script type="module" src="../src/login-register.js"></script>
   </body>
 </html>

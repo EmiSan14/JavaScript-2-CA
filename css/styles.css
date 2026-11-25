@@ -87,3 +87,15 @@ main {
   background-color: #969595;
   cursor: default;
 }
+
+#login-page {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: auto;
+}
+
+.form-login label,
+.form-login input {
+  width: 100%;
+}
