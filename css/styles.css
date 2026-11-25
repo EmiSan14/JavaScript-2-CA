@@ -119,10 +119,40 @@ main {
   text-transform: uppercase;
 }
 
+.errorMessageContainer,
+.successMessageContainer {
+  position: fixed;
+  width: 60%;
+  height: 30%;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .errorMessageContainer {
   background-color: #2b2b2b;
 }
 
+.successMessageContainer {
+  background-color: chartreuse;
+}
+
 .errorMessageContainer p {
   color: #fff;
+}
+
+.errorMessageContainer button,
+.successMessageContainer button {
+  width: 40%;
+  background-color: #fff;
+  color: #000;
+  border-radius: 3px;
+  border: none;
+  text-transform: uppercase;
 }
