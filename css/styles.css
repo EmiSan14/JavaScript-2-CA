@@ -14,6 +14,10 @@ main {
   margin-right: 70px;
 }
 
+.hidden {
+  display: none;
+}
+
 .navigation {
   gap: 5px;
 }
@@ -88,7 +92,8 @@ main {
   cursor: default;
 }
 
-#login-page {
+#login-page,
+#register-page {
   display: flex;
   flex-wrap: wrap;
   width: 70%;
@@ -96,6 +101,28 @@ main {
 }
 
 .form-login label,
-.form-login input {
+.form-login input,
+.form-register label,
+.form-register input {
   width: 100%;
+  margin-bottom: 5px;
+}
+
+.form-login label,
+.form-register label,
+#submit-login-page {
+  text-transform: capitalize;
+}
+
+#login-submit,
+#register-submit {
+  text-transform: uppercase;
+}
+
+.errorMessageContainer {
+  background-color: #2b2b2b;
+}
+
+.errorMessageContainer p {
+  color: #fff;
 }

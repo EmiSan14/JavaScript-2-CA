@@ -31,14 +31,19 @@ export async function apiLoginOrRegisterAttempt(
   name,
 ) {
   const URL = "https://v2.api.noroff.dev/";
-  const credentials = {
-    email: email,
-    password: password,
-  };
-  if (name) {
-    const { name: name, ...credentials } = credentials;
+  let credentials;
+  if (!name) {
+    credentials = {
+      email: email,
+      password: password,
+    };
+  } else {
+    credentials = {
+      name: name,
+      email: email,
+      password: password,
+    };
   }
-  console.log("credentials:", credentials);
   const options = {
     method: "POST",
     headers: {
@@ -49,9 +54,13 @@ export async function apiLoginOrRegisterAttempt(
 
   try {
     const response = await fetch(`${URL}${endpoint}`, options);
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData.errors[0].message;
+    }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Error message:", error);
+    console.error("Error:", error);
   }
 }

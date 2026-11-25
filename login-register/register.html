@@ -18,7 +18,64 @@
       </nav>
     </header>
     <main>
-      <h1>Register</h1>
+      <section id="register-page">
+        <h1>Register</h1>
+        <form class="form-register">
+          <label for="username-register-page">Username</label>
+          <input
+            type="text"
+            name="username-register-page"
+            id="username-register-page"
+            placeholder="Choose your username"
+            title="Username including at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            required
+          />
+          <label for="email-register-page">e-mail</label>
+          <input
+            type="email"
+            name="email-register-page"
+            id="email-register-page"
+            placeholder="Your noroff e-mail address"
+            title="Valid @stud.noroff.no email-address"
+            pattern=".*@stud.noroff.no"
+            required
+          />
+          <label for="password-register-page">password</label>
+          <input
+            type="password"
+            name="password-register-page"
+            id="password-register-page"
+            placeholder="A valid password"
+            title="Valid password requires at least 1 uppercase letter, 1 lowercase letter, and 1 number"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            required
+          />
+          <label for="password-register-page-repeat">repeat password</label>
+          <input
+            type="password"
+            name="password-register-page-repeat"
+            id="password-register-page-repeat"
+            placeholder="Repeat Password"
+            title="Repeat password above"
+            required
+          />
+
+          <label for="register-submit" class="hidden">register-button</label>
+          <input
+            type="submit"
+            name="register-submit"
+            class="uppercase"
+            id="register-submit"
+            value="register"
+          />
+          <p id="reg-to-log-text">
+            Already have an account?
+            <a href="login.html">Log in here</a>
+          </p>
+        </form>
+      </section>
     </main>
+    <script type="module" src="../src/register.js"></script>
   </body>
 </html>

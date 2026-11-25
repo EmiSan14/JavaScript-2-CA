@@ -22,22 +22,22 @@
       <section id="login-page">
         <h1>Login Credentials</h1>
         <form class="form-login">
-          <label for="email-login-page" class="hidden">e-mail</label>
+          <label for="email-login-page">e-mail</label>
           <input
             type="email"
             name="email-login-page"
             id="email-login-page"
-            placeholder="E-Mail"
+            placeholder="Your noroff e-mail address"
             title="A registered @stud.noroff.no email-address"
             pattern=".*@stud.noroff.no"
             required
           />
-          <label for="password-login-page" class="hidden">password</label>
+          <label for="password-login-page">password</label>
           <input
             type="password"
             name="password-login-page"
             id="password-login-page"
-            placeholder="Password"
+            placeholder="Your account's registered password"
             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
             required
           />
@@ -49,13 +49,13 @@
             id="login-submit"
             value="log in"
           />
-          <p class="text-align-center" id="log-to-reg-text">
-            Don't already have an account? Sign up
-            <a href="register.html">here</a>
+          <p id="log-to-reg-text">
+            Need to create an account?
+            <a href="register.html">Register here</a>
           </p>
         </form>
       </section>
     </main>
-    <script type="module" src="../src/login-register.js"></script>
+    <script type="module" src="../src/login.js"></script>
   </body>
 </html>
