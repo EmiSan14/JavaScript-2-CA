@@ -11,7 +11,6 @@ export async function apiFetch(endpoint, page) {
       "X-Noroff-API-Key": apiKey,
     },
   };
-  console.log(page);
 
   try {
     const response = await fetch(
@@ -19,7 +18,6 @@ export async function apiFetch(endpoint, page) {
       options,
     );
     const data = await response.json();
-    console.log("meta:", data.meta);
     return data;
   } catch (error) {
     console.log("Error message:", error);

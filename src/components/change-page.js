@@ -25,7 +25,7 @@ export async function decreasePage(apiData, clickedButton, oppositeButton) {
   const posts = apiData.data;
   updateState(apiMetaData);
   populateFeed(feedContainer, posts);
-  if (postsState.currentPage === postsState.pageCount) {
+  if (postsState.currentPage === 1) {
     clickedButton.setAttribute("disabled", true);
   }
   if (postsState.currentPage < postsState.pageCount) {

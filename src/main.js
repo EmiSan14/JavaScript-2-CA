@@ -32,7 +32,7 @@ nextButton.addEventListener("click", async () => {
 });
 
 prevButton.addEventListener("click", async () => {
-  const newPostsData = await apiFetch("posts", postsState.currentPage - 1);
+  const newPostsData = await apiFetch("/posts", postsState.currentPage - 1);
   decreasePage(newPostsData, prevButton, nextButton);
 });
 
