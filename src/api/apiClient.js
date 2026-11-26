@@ -13,12 +13,27 @@ export async function apiFetch(endpoint, page) {
   };
 
   try {
-    const response = await fetch(
-      `${URL}${endpoint}?limit=100&page=${page}`,
-      options,
-    );
-    const data = await response.json();
-    return data;
+    if (endpoint === "/posts") {
+      const response = await fetch(
+        `${URL}${endpoint}?limit=100&page=${page}`,
+        options,
+      );
+      const data = await response.json();
+      return data;
+    }
+    if (endpoint === "/profiles") {
+      const response = await fetch(`${URL}${endpoint}`, options);
+      const data = await response.json();
+      return data;
+    } else {
+      const response = await fetch(`${URL}${endpoint}`, options);
+      if (!response.ok) {
+        const errorData = await response.json();
+        return errorData.statusCode;
+      }
+      const data = await response.json();
+      return data;
+    }
   } catch (error) {
     console.log("Error message:", error);
   }

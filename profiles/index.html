@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noroff-Social Profiles</title>
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <nav class="navigation">
+        <ul>
+          <li><a href="../login-register/login.html">login</a></li>
+          <li><a href="../login-register/register.html">register</a></li>
+          <li><a href="../index.html">feed</a></li>
+          <li><a href="../profile/index.html">profile</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="profilesPage">
+      <h1>Profiles</h1>
+      <form id="profilesSearchForm">
+        <input type="search" id="profilesSearch" placeholder="search profile" />
+        <input type="submit" id="profileSearchSubmit" value="search" />
+      </form>
+      <section id="profilesContainer" class="hidden">
+        <article id="searchedProfile"></article>
+      </section>
+    </main>
+    <script type="module" src="../src/profiles.js"></script>
+  </body>
+</html>

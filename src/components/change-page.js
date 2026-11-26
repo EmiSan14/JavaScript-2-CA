@@ -1,34 +1,43 @@
-import { postsState } from "../storage/states.js";
 import { updateState } from "../utils/update-state.js";
-import { feedContainer } from "../main.js";
 import { populateFeed } from "./populate-feed.js";
 
-export async function incrementPage(apiData, clickedButton, oppositeButton) {
-  feedContainer.innerHTML = "";
-  postsState.currentPage++;
+export async function incrementPage(
+  apiData,
+  clickedButton,
+  oppositeButton,
+  container,
+  state,
+) {
+  container.innerHTML = "";
+  state.currentPage++;
   const apiMetaData = apiData.meta;
   const posts = apiData.data;
-  updateState(apiMetaData);
-  populateFeed(feedContainer, posts);
-  if (postsState.currentPage === postsState.pageCount) {
+  updateState(apiMetaData, state);
+  populateFeed(container, posts);
+  if (state.currentPage === state.pageCount) {
     clickedButton.setAttribute("disabled", true);
   }
-  if (postsState.currentPage > 1) {
+  if (state.currentPage > 1) {
     oppositeButton.removeAttribute("disabled");
   }
 }
 
-export async function decreasePage(apiData, clickedButton, oppositeButton) {
-  feedContainer.innerHTML = "";
-  postsState.currentPage--;
+export async function decreasePage(
+  apiData,
+  clickedButton,
+  oppositeButton,
+  container,
+) {
+  container.innerHTML = "";
+  state.currentPage--;
   const apiMetaData = apiData.meta;
   const posts = apiData.data;
-  updateState(apiMetaData);
-  populateFeed(feedContainer, posts);
-  if (postsState.currentPage === 1) {
+  updateState(apiMetaData, state);
+  populateFeed(container, posts);
+  if (state.currentPage === 1) {
     clickedButton.setAttribute("disabled", true);
   }
-  if (postsState.currentPage < postsState.pageCount) {
+  if (state.currentPage < state.pageCount) {
     oppositeButton.removeAttribute("disabled");
   }
 }

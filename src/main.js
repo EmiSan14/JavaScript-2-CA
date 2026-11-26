@@ -21,7 +21,7 @@ async function renderPosts(pageNumber) {
   try {
     const postsData = await apiFetch("/posts", pageNumber);
     populateFeed(feedContainer, postsData.data);
-    updateState(postsData.meta);
+    updateState(postsData.meta, postsState);
     prevButton.setAttribute("disabled", true);
     lastButton.textContent = `last (${postsState.pageCount})`;
     return postsData;
@@ -35,19 +35,25 @@ const initialLoad = await renderPosts(1);
 
 nextButton.addEventListener("click", async () => {
   const newPostsData = await apiFetch("/posts", postsState.currentPage + 1);
-  incrementPage(newPostsData, nextButton, prevButton);
+  incrementPage(
+    newPostsData,
+    nextButton,
+    prevButton,
+    feedContainer,
+    postsState,
+  );
 });
 
 prevButton.addEventListener("click", async () => {
   const newPostsData = await apiFetch("/posts", postsState.currentPage - 1);
-  decreasePage(newPostsData, prevButton, nextButton);
+  decreasePage(newPostsData, prevButton, nextButton, feedContainer, postsState);
 });
 
 firstButton.addEventListener("click", async () => {
   feedContainer.innerHTML = "";
   postsState.currentPage = 1;
   const apiMetaData = await renderPosts(postsState.currentPage);
-  updateState(apiMetaData);
+  updateState(apiMetaData, postsState);
   prevButton.setAttribute("disabled", true);
   nextButton.removeAttribute("disabled");
 });
@@ -56,7 +62,7 @@ lastButton.addEventListener("click", async () => {
   feedContainer.innerHTML = "";
   postsState.currentPage = postsState.pageCount;
   const apiMetaData = await renderPosts(postsState.currentPage);
-  updateState(apiMetaData);
+  updateState(apiMetaData, postsState);
   nextButton.setAttribute("disabled", true);
   prevButton.removeAttribute("disabled");
 });

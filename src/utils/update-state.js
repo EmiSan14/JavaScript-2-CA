@@ -1,7 +1,5 @@
-import { postsState } from "../storage/states.js";
-
-export function updateState(apiMetadata) {
-  postsState.isFirstPage = apiMetadata.isFirstPage;
-  postsState.isLastPage = apiMetadata.isLastPage;
-  postsState.pageCount = apiMetadata.pageCount;
+export function updateState(apiMetadata, state) {
+  state.isFirstPage = apiMetadata.isFirstPage;
+  state.isLastPage = apiMetadata.isLastPage;
+  state.pageCount = apiMetadata.pageCount;
 }
