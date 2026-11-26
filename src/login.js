@@ -15,7 +15,8 @@ submitLoginPage.addEventListener("click", async (event) => {
   );
   domFeedback(loginPage, "Login successful");
   const accessToken = data.data.accessToken;
-  console.log("accessToken:", accessToken);
+  const userProfile = JSON.stringify(data.data);
+  sessionStorage.setItem("userProfile", userProfile);
   sessionStorage.setItem("accessToken", accessToken);
   // emailLoginPage.value = "";
   // passwordLoginPage.value = "";

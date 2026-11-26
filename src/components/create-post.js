@@ -1,11 +1,16 @@
 import { apiPOST } from "../api/apiClient.js";
 import { domFeedback } from "./dom-feedback.js";
 
-export function createPost(contentContainer, postTitle, postBody) {
+export async function createPost(contentContainer, postTitle, postBody) {
+  let apiResponse;
   if (!postBody) {
-    const apiResponse = apiPOST("social/posts", postTitle);
+    apiResponse = await apiPOST("social/posts", postTitle);
   } else {
-    const apiResponse = apiPOST("social/posts", postTitle, postBody);
+    apiResponse = await apiPOST("social/posts", postTitle, postBody);
   }
-  domFeedback(contentContainer, "Post created");
+  if (apiResponse === "Title cannot be empty") {
+    domFeedback(contentContainer, apiResponse);
+  } else {
+    domFeedback(contentContainer, "Post created");
+  }
 }
