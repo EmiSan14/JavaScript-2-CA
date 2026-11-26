@@ -1,4 +1,4 @@
-import { apiLoginOrRegisterAttempt } from "./api/apiClient.js";
+import { apiPOST } from "./api/apiClient.js";
 import { domFeedback } from "./components/dom-feedback.js";
 
 const registerPage = document.getElementById("register-page");
@@ -11,7 +11,7 @@ const submitRegisterPage = document.getElementById("register-submit");
 submitRegisterPage.addEventListener("click", async (event) => {
   event.preventDefault();
   if (passwordRegisterPage.value === passwordRepeat.value) {
-    const data = await apiLoginOrRegisterAttempt(
+    const data = await apiPOST(
       "auth/register",
       emailRegisterPage.value,
       passwordRegisterPage.value,

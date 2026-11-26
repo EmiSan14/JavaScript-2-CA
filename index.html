@@ -19,12 +19,41 @@
     </header>
     <main>
       <h1>Feed</h1>
+      <div id="newPostWindow" class="hidden">
+        <div id="newPostContainer">
+          <h2>create new post:</h2>
+          <label for="newPostTitle">title*</label>
+          <input
+            type="text"
+            name="newPostTitle"
+            id="newPostTitle"
+            title="Write the title of your post"
+            required
+          />
+          <label for="newPostBody">body</label>
+          <textarea id="newPostBody"></textarea>
+          <label for="newPostSubmit" class="hidden">submit post</label>
+          <input
+            type="submit"
+            name="newPostSubmit"
+            id="newPostSubmit"
+            value="post"
+          />
+          <input
+            type="button"
+            id="dismissPostButton"
+            name="dismissPostButton"
+            value="X"
+          />
+        </div>
+      </div>
       <section id="feedContainer"></section>
       <div id="buttonContainerFeed">
         <button id="firstButton">first</button>
         <button id="prevButton">prev</button>
         <button id="nextButton">next</button>
         <button id="lastButton">last</button>
+        <button id="newPostButton">new post</button>
       </div>
     </main>
     <script type="module" src="./src/main.js"></script>

@@ -1,4 +1,4 @@
-import { apiLoginOrRegisterAttempt } from "./api/apiClient.js";
+import { apiPOST } from "./api/apiClient.js";
 import { domFeedback } from "./components/dom-feedback.js";
 
 const loginPage = document.getElementById("login-page");
@@ -8,14 +8,15 @@ const submitLoginPage = document.getElementById("login-submit");
 
 submitLoginPage.addEventListener("click", async (event) => {
   event.preventDefault();
-  const data = await apiLoginOrRegisterAttempt(
+  const data = await apiPOST(
     "auth/login",
     emailLoginPage.value,
     passwordLoginPage.value,
   );
   domFeedback(loginPage, "Login successful");
   const accessToken = data.data.accessToken;
+  console.log("accessToken:", accessToken);
   sessionStorage.setItem("accessToken", accessToken);
-  emailLoginPage.value = "";
-  passwordLoginPage.value = "";
+  // emailLoginPage.value = "";
+  // passwordLoginPage.value = "";
 });

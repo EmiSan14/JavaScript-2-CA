@@ -92,6 +92,53 @@ main {
   cursor: default;
 }
 
+#newPostWindow {
+  position: sticky;
+  top: 10px;
+  background-color: #2b2b2b;
+  height: 500px;
+  width: 100%;
+  padding: 20px;
+}
+
+#newPostContainer {
+  background-color: #d9d3d2;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+#newPostContainer label,
+#newPostTitle,
+#newPostContainer textarea {
+  width: 100%;
+}
+
+#newPostContainer h2 {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  text-transform: capitalize;
+}
+
+#newPostTitle {
+  max-height: 20px;
+}
+
+#newPostSubmit {
+  width: 30%;
+  margin-top: 10px;
+}
+
+#dismissPostButton {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+
 #login-page,
 #register-page {
   display: flex;

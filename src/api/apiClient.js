@@ -24,33 +24,54 @@ export async function apiFetch(endpoint, page) {
   }
 }
 
-export async function apiLoginOrRegisterAttempt(
-  endpoint,
-  email,
-  password,
-  name,
-) {
+export async function apiPOST(endpoint, value1, value2, value3) {
   const URL = "https://v2.api.noroff.dev/";
+  const apiKey = "";
+  const accessToken = sessionStorage.getItem("accessToken");
   let credentials;
-  if (!name) {
-    credentials = {
-      email: email,
-      password: password,
-    };
-  } else {
-    credentials = {
-      name: name,
-      email: email,
-      password: password,
+  let options;
+  if (endpoint === "auth/login" || "auth/register") {
+    if (!value3) {
+      credentials = {
+        email: value1,
+        password: value2,
+      };
+    } else {
+      credentials = {
+        name: value3,
+        email: value1,
+        password: value2,
+      };
+    }
+    options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
     };
   }
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  };
+  if (endpoint === "social/posts") {
+    if (!value2) {
+      credentials = {
+        title: value1,
+      };
+    } else {
+      credentials = {
+        title: value1,
+        body: value2,
+      };
+    }
+    options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+      },
+      body: JSON.stringify(credentials),
+    };
+  }
 
   try {
     const response = await fetch(`${URL}${endpoint}`, options);

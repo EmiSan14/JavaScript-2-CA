@@ -3,12 +3,19 @@ import { populateFeed } from "./components/populate-feed.js";
 import { postsState } from "./storage/states.js";
 import { updateState } from "./utils/update-state.js";
 import { decreasePage, incrementPage } from "./components/change-page.js";
+import { createPost } from "./components/create-post.js";
 
 export const feedContainer = document.getElementById("feedContainer");
 const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
 const firstButton = document.getElementById("firstButton");
 const lastButton = document.getElementById("lastButton");
+const newPostButton = document.getElementById("newPostButton");
+const newPostWindow = document.getElementById("newPostWindow");
+const newPostTitle = document.getElementById("newPostTitle");
+const newPostBody = document.getElementById("newPostBody");
+const newPostSubmit = document.getElementById("newPostSubmit");
+const dismissPostButton = document.getElementById("dismissPostButton");
 
 async function renderPosts(pageNumber) {
   try {
@@ -52,4 +59,21 @@ lastButton.addEventListener("click", async () => {
   updateState(apiMetaData);
   nextButton.setAttribute("disabled", true);
   prevButton.removeAttribute("disabled");
+});
+
+newPostButton.addEventListener("click", () => {
+  newPostWindow.classList.remove("hidden");
+});
+
+newPostSubmit.addEventListener("click", async () => {
+  createPost(feedContainer, newPostTitle.value, newPostBody.value);
+  newPostWindow.classList.add("hidden");
+  newPostTitle.value = "";
+  newPostBody.value = "";
+});
+
+dismissPostButton.addEventListener("click", () => {
+  newPostWindow.classList.add("hidden");
+  newPostTitle.value = "";
+  newPostBody.value = "";
 });
