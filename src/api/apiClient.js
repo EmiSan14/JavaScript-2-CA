@@ -101,7 +101,7 @@ export async function apiPOST(endpoint, value1, value2, value3) {
   }
 }
 
-export async function apiPUT(endpoint, accessToken, userOrId) {
+export async function apiPUT(endpoint, accessToken, userOrId, updateObject) {
   const URL = "https://v2.api.noroff.dev/";
   const apiKey = "";
   const options = {
@@ -112,17 +112,70 @@ export async function apiPUT(endpoint, accessToken, userOrId) {
       "X-Noroff-API-Key": apiKey,
     },
   };
+
+  try {
+    // When updating a post
+    if (updateObject) {
+      const updatedOptions = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+        body: JSON.stringify(updateObject),
+      };
+      const response = await fetch(`${URL}${endpoint}`, updatedOptions);
+      console.log("options", options);
+      if (!response.ok) {
+        const errorData = await response.json();
+        return errorData.errors[0].message;
+      }
+      return `Post successfully updated. Page will reload`;
+    } else {
+      // Following or unfollowing user
+      const response = await fetch(`${URL}${endpoint}`, options);
+      console.log("options", options);
+      if (!response.ok) {
+        const errorData = await response.json();
+        return errorData.errors[0].message;
+      }
+      const data = await response.json();
+      if (endpoint === `social/profiles/${userOrId}/follow`) {
+        return `You are now following ${userOrId}`;
+      }
+      if (endpoint === `social/profiles/${userOrId}/unfollow`) {
+        return `You have unfollowed ${userOrId}`;
+      } else {
+        return `Post successfully updated`;
+      }
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
+export async function apiDELETE(endpoint, accessToken) {
+  const URL = "https://v2.api.noroff.dev/";
+  const apiKey = "";
+  const options = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": apiKey,
+    },
+  };
   try {
     const response = await fetch(`${URL}${endpoint}`, options);
+    console.log("response:", response);
+    console.log(response.status);
     if (!response.ok) {
       const errorData = await response.json();
       return errorData.errors[0].message;
     }
-    const data = await response.json();
-    if (endpoint === `social/profiles/${userOrId}/follow`) {
-      return `You are now following ${userOrId}`;
-    } else if (endpoint === `social/profiles/${userOrId}/unfollow`) {
-      return `You have unfollowed ${userOrId}`;
+    if (response.status === 204) {
+      return "Post successfully deleted. Page will reload";
     }
   } catch (error) {
     console.error("Error:", error);

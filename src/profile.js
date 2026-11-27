@@ -1,5 +1,6 @@
 import { createUserProfile, profilePosts } from "./components/user-profile.js";
-import { apiFetch } from "./api/apiClient.js";
+import { apiFetch, apiPUT, apiDELETE } from "./api/apiClient.js";
+import { domFeedback } from "./components/dom-feedback.js";
 
 const userProfileContainer = document.getElementById("userProfile");
 const newPostWindowEdit = document.getElementById("newPostWindowEdit");
@@ -26,10 +27,20 @@ async function profilePageOnStart() {
       profilePosts(postContainer, post);
       userProfileContainer.appendChild(postContainer);
     });
+
     const allPosts = document.querySelectorAll(".post");
     allPosts.forEach((post) => {
-      addEventListener("click", () => {
-        // WHAT THE FUCK IS YOUR ISSUE??!!!?!!?!?!?!
+      post.addEventListener("click", () => {
+        console.log("post:", post);
+        sessionStorage.setItem(
+          "clickedPostTitle",
+          post.firstElementChild.textContent,
+        );
+        sessionStorage.setItem(
+          "clickedPostBody",
+          post.firstElementChild.nextElementSibling.textContent,
+        );
+        sessionStorage.setItem("clickedPostId", post.dataset.id);
         editOrDeletePrompt.classList.remove("hidden");
         editOrDeletePrompt.classList.add("flex");
       });
@@ -44,15 +55,47 @@ dismissPostButtonEdit.addEventListener("click", () => {
 });
 
 editPostButton.addEventListener("click", () => {
-  // WHAT THE FUCK IS YOUR ISSUE??!!!?!!?!?!?!
-  console.log("Fuck you");
   editOrDeletePrompt.classList.add("hidden");
   editOrDeletePrompt.classList.remove("flex");
   newPostWindowEdit.classList.remove("hidden");
+  newPostTitleEdit.value = sessionStorage.getItem("clickedPostTitle");
+  newPostBodyEdit.value = sessionStorage.getItem("clickedPostBody");
 });
 
 dismissPromptButton.addEventListener("click", () => {
-  console.log("Fuck you");
   editOrDeletePrompt.classList.remove("flex");
   editOrDeletePrompt.classList.add("hidden");
+});
+
+newPostSubmitEdit.addEventListener("click", async () => {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const newPost = {
+    title: newPostTitleEdit.value,
+    body: newPostBodyEdit.value,
+  };
+  console.log(newPost);
+  const postId = sessionStorage.getItem("clickedPostId");
+  const editedPostMessage = await apiPUT(
+    `social/posts/${postId}`,
+    accessToken,
+    postId,
+    newPost,
+  );
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000);
+  domFeedback(userProfileContainer, editedPostMessage);
+});
+
+deletePostButton.addEventListener("click", async () => {
+  const accessToken = sessionStorage.getItem("accessToken");
+  const postId = sessionStorage.getItem("clickedPostId");
+  const deletedPostMessage = await apiDELETE(
+    `social/posts/${postId}`,
+    accessToken,
+  );
+  setTimeout(() => {
+    window.location.reload();
+  }, 2000);
+  domFeedback(userProfileContainer, deletedPostMessage);
 });
