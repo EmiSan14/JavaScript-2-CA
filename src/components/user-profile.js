@@ -1,6 +1,12 @@
 import { createDOMElement } from "../utils/create-dom-element.js";
 import { createImage } from "../utils/create-image.js";
 
+/**
+ * Creating and appending a profile to the profile-page
+ * with data fetched when logging in.
+ * @param {HTMLElement} container - A container on the page
+ * @param {Array} userProfile - API-data consisting of name, email, bio etc.
+ */
 export function createUserProfile(container, userProfile) {
   const profileName = createDOMElement("p", userProfile.name);
   const profileEmail = createDOMElement("p", userProfile.email);

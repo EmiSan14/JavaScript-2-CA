@@ -13,6 +13,7 @@ export async function apiFetch(endpoint, page, search) {
   };
 
   try {
+    // Fetching all posts
     if (endpoint === "/posts") {
       const response = await fetch(
         `${URL}${endpoint}?limit=100&page=${page}`,
@@ -21,11 +22,13 @@ export async function apiFetch(endpoint, page, search) {
       const data = await response.json();
       return data;
     }
+    // Fetching all profiles
     if (endpoint === "/profiles") {
       const response = await fetch(`${URL}${endpoint}`, options);
       const data = await response.json();
       return data;
     }
+    // Fetching posts containing searchbar-value
     if (endpoint === `/posts/search?q=${search}`) {
       const response = await fetch(`${URL}${endpoint}`, options);
       const data = await response.json();
@@ -51,12 +54,14 @@ export async function apiPOST(endpoint, value1, value2, value3) {
   let credentials;
   let options;
   if (endpoint === "auth/login" || "auth/register") {
+    // Login only requires name and password
     if (!value3) {
       credentials = {
         email: value1,
         password: value2,
       };
     } else {
+      // Register requires all 3
       credentials = {
         name: value3,
         email: value1,
@@ -101,6 +106,7 @@ export async function apiPOST(endpoint, value1, value2, value3) {
     }
     const data = await response.json();
     if (endpoint === "auth/register") {
+      // For visual feedback on page
       return `Created profile ${data.data.name} with email: ${data.data.email}`;
     } else {
       return data;
