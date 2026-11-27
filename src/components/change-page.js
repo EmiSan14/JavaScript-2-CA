@@ -27,6 +27,7 @@ export async function decreasePage(
   clickedButton,
   oppositeButton,
   container,
+  state,
 ) {
   container.innerHTML = "";
   state.currentPage--;

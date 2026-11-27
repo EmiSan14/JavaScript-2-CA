@@ -18,6 +18,40 @@
     </header>
     <main>
       <h1>Profile</h1>
+      <div id="newPostWindowEdit" class="hidden">
+        <div id="newPostContainerEdit">
+          <h2>edit post:</h2>
+          <label for="newPostTitleEdit">title*</label>
+          <input
+            type="text"
+            name="newPostTitleEdit"
+            id="newPostTitleEdit"
+            title="Write the title of your post"
+            required
+          />
+          <label for="newPostBodyEdit">body</label>
+          <textarea id="newPostBodyEdit"></textarea>
+          <label for="newPostSubmitEdit" class="hidden">submit post</label>
+          <input
+            type="submit"
+            name="newPostSubmitEdit"
+            id="newPostSubmitEdit"
+            value="post"
+          />
+          <input
+            type="button"
+            id="dismissPostButtonEdit"
+            name="dismissPostButton"
+            value="X"
+          />
+        </div>
+      </div>
+      <div id="editOrDeletePrompt" class="hidden">
+        <p>Do you want to edit or delete this post?</p>
+        <button id="toEdit">edit post</button>
+        <button id="toDelete">delete post</button>
+        <button id="toDismiss">X</button>
+      </div>
       <section id="profileSection">
         <article id="userProfile">
         </article>

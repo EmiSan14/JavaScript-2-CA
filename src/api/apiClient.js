@@ -100,3 +100,31 @@ export async function apiPOST(endpoint, value1, value2, value3) {
     console.error("Error:", error);
   }
 }
+
+export async function apiPUT(endpoint, accessToken, userOrId) {
+  const URL = "https://v2.api.noroff.dev/";
+  const apiKey = "";
+  const options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": apiKey,
+    },
+  };
+  try {
+    const response = await fetch(`${URL}${endpoint}`, options);
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData.errors[0].message;
+    }
+    const data = await response.json();
+    if (endpoint === `social/profiles/${userOrId}/follow`) {
+      return `You are now following ${userOrId}`;
+    } else if (endpoint === `social/profiles/${userOrId}/unfollow`) {
+      return `You have unfollowed ${userOrId}`;
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}

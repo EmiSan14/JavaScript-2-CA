@@ -27,4 +27,5 @@ export function profilePosts(container, userPost) {
   }
   container.appendChild(postTitle);
   container.appendChild(postBody);
+  container.classList.add("post");
 }

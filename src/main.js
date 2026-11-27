@@ -45,6 +45,7 @@ nextButton.addEventListener("click", async () => {
 });
 
 prevButton.addEventListener("click", async () => {
+  console.log(postsState.currentPage);
   const newPostsData = await apiFetch("/posts", postsState.currentPage - 1);
   decreasePage(newPostsData, prevButton, nextButton, feedContainer, postsState);
 });
