@@ -68,6 +68,11 @@ main {
   align-self: flex-end;
 }
 
+.singlePost a {
+  color: brown;
+  cursor: pointer;
+}
+
 #buttonContainerFeed {
   position: sticky;
   bottom: 10px;

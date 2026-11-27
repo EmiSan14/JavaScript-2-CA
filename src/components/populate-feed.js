@@ -11,15 +11,19 @@ export function populateFeed(domElement, apiData) {
   apiData.forEach((post) => {
     const postContainer = document.createElement("article");
     postContainer.classList.add("singlePost");
-    postContainer.dataset.id = post.id;
     const postTitle = createDOMElement("h2", post.title);
     const postBody = createDOMElement("p", post.body);
+    const postMoreButton = createDOMElement("a", "more");
+    postMoreButton.dataset.id = post.id;
+    postMoreButton.classList.add("postMoreButton");
+    postMoreButton.setAttribute("href", "../individual-post/index.html");
     postContainer.appendChild(postTitle);
     postContainer.appendChild(postBody);
     if (post.media) {
       const postImage = createImage(post.media);
       postContainer.appendChild(postImage);
     }
+    postContainer.appendChild(postMoreButton);
     domElement.appendChild(postContainer);
   });
 }

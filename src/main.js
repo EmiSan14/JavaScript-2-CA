@@ -143,13 +143,11 @@ searchbar.addEventListener("keyup", async () => {
   lastButton.textContent = `last (${postsState.pageCount})`;
 });
 
-const allPosts = document.querySelectorAll(".singlePost");
-console.log(allPosts);
-if (allPosts) {
-  allPosts.forEach((post) => {
-    post.addEventListener("click", () => {
-      sessionStorage.setItem("postIdForIndPostPage", post.dataset.id);
-      window.location.assign("../individual-post/index.html");
+const allPostMoreButtons = document.querySelectorAll(".postMoreButton");
+if (allPostMoreButtons) {
+  allPostMoreButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      sessionStorage.setItem("postIdForIndPostPage", button.dataset.id);
     });
   });
 }
