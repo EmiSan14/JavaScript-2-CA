@@ -16,7 +16,7 @@ export function populateFeed(domElement, apiData) {
     const postMoreButton = createDOMElement("a", "more");
     postMoreButton.dataset.id = post.id;
     postMoreButton.classList.add("postMoreButton");
-    postMoreButton.setAttribute("href", "../individual-post/index.html");
+    postMoreButton.setAttribute("href", "./individual-post/index.html");
     postContainer.appendChild(postTitle);
     postContainer.appendChild(postBody);
     if (post.media) {
