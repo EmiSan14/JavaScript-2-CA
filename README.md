@@ -51,3 +51,7 @@ Both node.js and dotenv installed, but not used
 ## Contact
 
 [E-mail](emiloskar14@outlook.com)
+
+## Deployed Page
+
+https://emisan14.github.io/JavaScript-2-CA/
