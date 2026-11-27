@@ -1,4 +1,4 @@
-import { apiFetch } from "./api/apiClient.js";
+import { apiFetch, apiSinglePost } from "./api/apiClient.js";
 import { populateFeed } from "./components/populate-feed.js";
 import { postsState } from "./storage/states.js";
 import { updateState } from "./utils/update-state.js";
@@ -142,3 +142,14 @@ searchbar.addEventListener("keyup", async () => {
   nextButton.setAttribute("disabled", true);
   lastButton.textContent = `last (${postsState.pageCount})`;
 });
+
+const allPosts = document.querySelectorAll(".singlePost");
+console.log(allPosts);
+if (allPosts) {
+  allPosts.forEach((post) => {
+    post.addEventListener("click", () => {
+      sessionStorage.setItem("postIdForIndPostPage", post.dataset.id);
+      window.location.assign("../individual-post/index.html");
+    });
+  });
+}

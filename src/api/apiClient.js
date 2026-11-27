@@ -47,6 +47,33 @@ export async function apiFetch(endpoint, page, search) {
   }
 }
 
+export async function apiSinglePost(id) {
+  const URL = "https://v2.api.noroff.dev/social/posts/";
+  const apiKey = "0f168184-85ab-460f-ba6b-44181341e4c3";
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRW1pU2FuMTQiLCJlbWFpbCI6ImVtaXNhbjA2OTUyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzk1NDQ3MjkwfQ.1JETIUSvotcSZgkvx84Djz4xHRx6mvSHg42JkAGQDjc";
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+      "X-Noroff-API-Key": apiKey,
+    },
+  };
+
+  try {
+    const response = await fetch(`${URL}${id}`, options);
+    if (!response.ok) {
+      const errorData = await response.json();
+      return errorData.errors[0].message;
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function apiPOST(endpoint, value1, value2, value3) {
   const URL = "https://v2.api.noroff.dev/";
   const apiKey = "0f168184-85ab-460f-ba6b-44181341e4c3";
