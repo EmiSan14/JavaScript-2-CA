@@ -16,6 +16,7 @@ const newPostTitle = document.getElementById("newPostTitle");
 const newPostBody = document.getElementById("newPostBody");
 const newPostSubmit = document.getElementById("newPostSubmit");
 const dismissPostButton = document.getElementById("dismissPostButton");
+const searchbar = document.getElementById("searchbar");
 
 async function renderPosts(pageNumber) {
   try {
@@ -24,6 +25,7 @@ async function renderPosts(pageNumber) {
     updateState(postsData.meta, postsState);
     prevButton.setAttribute("disabled", true);
     lastButton.textContent = `last (${postsState.pageCount})`;
+    sessionStorage.removeItem("postsFromSearch");
     return postsData;
   } catch (error) {
     console.error("Error occurred:", error.message);
@@ -34,20 +36,61 @@ async function renderPosts(pageNumber) {
 const initialLoad = await renderPosts(1);
 
 nextButton.addEventListener("click", async () => {
-  const newPostsData = await apiFetch("/posts", postsState.currentPage + 1);
-  incrementPage(
-    newPostsData,
-    nextButton,
-    prevButton,
-    feedContainer,
-    postsState,
-  );
+  const postsFromSearch = sessionStorage.getItem("postsFromSearch");
+  if (postsFromSearch) {
+    const search = searchbar.value;
+    const searchedPostsData = await apiFetch(
+      `/posts/search?q=${search}`,
+      postsState.currentPage + 1,
+      search,
+    );
+    incrementPage(
+      searchedPostsData,
+      nextButton,
+      prevButton,
+      feedContainer,
+      postsState,
+    );
+  } else {
+    const newPostsData = await apiFetch("/posts", postsState.currentPage + 1);
+    sessionStorage.removeItem("postsFromSearch");
+    incrementPage(
+      newPostsData,
+      nextButton,
+      prevButton,
+      feedContainer,
+      postsState,
+    );
+  }
 });
 
 prevButton.addEventListener("click", async () => {
-  console.log(postsState.currentPage);
-  const newPostsData = await apiFetch("/posts", postsState.currentPage - 1);
-  decreasePage(newPostsData, prevButton, nextButton, feedContainer, postsState);
+  const postsFromSearch = sessionStorage.getItem("postsFromSearch");
+  if (postsFromSearch) {
+    const search = searchbar.value;
+    const searchedPostsData = await apiFetch(
+      `/posts/search?q=${search}`,
+      postsState.currentPage - 1,
+      search,
+    );
+    decreasePage(
+      searchedPostsData,
+      prevButton,
+      nextButton,
+      feedContainer,
+      postsState,
+    );
+  } else {
+    const newPostsData = await apiFetch("/posts", postsState.currentPage - 1);
+    sessionStorage.removeItem("postsFromSearch");
+    decreasePage(
+      newPostsData,
+      prevButton,
+      nextButton,
+      feedContainer,
+      postsState,
+    );
+  }
 });
 
 firstButton.addEventListener("click", async () => {
@@ -83,4 +126,19 @@ dismissPostButton.addEventListener("click", () => {
   newPostWindow.classList.add("hidden");
   newPostTitle.value = "";
   newPostBody.value = "";
+});
+
+searchbar.addEventListener("keyup", async () => {
+  const search = searchbar.value;
+  const searchResults = await apiFetch(`/posts/search?q=${search}`, 1, search);
+  sessionStorage.setItem("postsFromSearch", true);
+  feedContainer.innerHTML = "";
+  populateFeed(feedContainer, searchResults.data);
+  updateState(searchResults.meta, postsState);
+  // Don't have time to make work for search-results too, so just disabled for now
+  firstButton.setAttribute("disabled", true);
+  lastButton.setAttribute("disabled", true);
+  prevButton.setAttribute("disabled", true);
+  nextButton.setAttribute("disabled", true);
+  lastButton.textContent = `last (${postsState.pageCount})`;
 });

@@ -1,6 +1,6 @@
-export async function apiFetch(endpoint, page) {
+export async function apiFetch(endpoint, page, search) {
   const URL = "https://v2.api.noroff.dev/social";
-  const apiKey = "";
+  const apiKey = "0f168184-85ab-460f-ba6b-44181341e4c3";
   const accessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRW1pU2FuMTQiLCJlbWFpbCI6ImVtaXNhbjA2OTUyQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzk1NDQ3MjkwfQ.1JETIUSvotcSZgkvx84Djz4xHRx6mvSHg42JkAGQDjc";
   const options = {
@@ -25,6 +25,11 @@ export async function apiFetch(endpoint, page) {
       const response = await fetch(`${URL}${endpoint}`, options);
       const data = await response.json();
       return data;
+    }
+    if (endpoint === `/posts/search?q=${search}`) {
+      const response = await fetch(`${URL}${endpoint}`, options);
+      const data = await response.json();
+      return data;
     } else {
       const response = await fetch(`${URL}${endpoint}`, options);
       if (!response.ok) {
@@ -35,13 +40,13 @@ export async function apiFetch(endpoint, page) {
       return data;
     }
   } catch (error) {
-    console.log("Error message:", error);
+    console.error("Error message:", error);
   }
 }
 
 export async function apiPOST(endpoint, value1, value2, value3) {
   const URL = "https://v2.api.noroff.dev/";
-  const apiKey = "";
+  const apiKey = "0f168184-85ab-460f-ba6b-44181341e4c3";
   const accessToken = sessionStorage.getItem("accessToken");
   let credentials;
   let options;
@@ -95,7 +100,11 @@ export async function apiPOST(endpoint, value1, value2, value3) {
       return errorData.errors[0].message;
     }
     const data = await response.json();
-    return data;
+    if (endpoint === "auth/register") {
+      return `Created profile ${data.data.name} with email: ${data.data.email}`;
+    } else {
+      return data;
+    }
   } catch (error) {
     console.error("Error:", error);
   }
@@ -103,7 +112,7 @@ export async function apiPOST(endpoint, value1, value2, value3) {
 
 export async function apiPUT(endpoint, accessToken, userOrId, updateObject) {
   const URL = "https://v2.api.noroff.dev/";
-  const apiKey = "";
+  const apiKey = "0f168184-85ab-460f-ba6b-44181341e4c3";
   const options = {
     method: "PUT",
     headers: {
@@ -126,7 +135,6 @@ export async function apiPUT(endpoint, accessToken, userOrId, updateObject) {
         body: JSON.stringify(updateObject),
       };
       const response = await fetch(`${URL}${endpoint}`, updatedOptions);
-      console.log("options", options);
       if (!response.ok) {
         const errorData = await response.json();
         return errorData.errors[0].message;
@@ -135,7 +143,6 @@ export async function apiPUT(endpoint, accessToken, userOrId, updateObject) {
     } else {
       // Following or unfollowing user
       const response = await fetch(`${URL}${endpoint}`, options);
-      console.log("options", options);
       if (!response.ok) {
         const errorData = await response.json();
         return errorData.errors[0].message;
@@ -157,7 +164,7 @@ export async function apiPUT(endpoint, accessToken, userOrId, updateObject) {
 
 export async function apiDELETE(endpoint, accessToken) {
   const URL = "https://v2.api.noroff.dev/";
-  const apiKey = "";
+  const apiKey = "0f168184-85ab-460f-ba6b-44181341e4c3";
   const options = {
     method: "DELETE",
     headers: {
@@ -168,8 +175,6 @@ export async function apiDELETE(endpoint, accessToken) {
   };
   try {
     const response = await fetch(`${URL}${endpoint}`, options);
-    console.log("response:", response);
-    console.log(response.status);
     if (!response.ok) {
       const errorData = await response.json();
       return errorData.errors[0].message;

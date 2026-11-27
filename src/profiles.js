@@ -65,7 +65,6 @@ followButton.addEventListener("click", async () => {
       accessToken,
       profileName,
     );
-    console.log(apiMessage);
     domFeedback(profilesPage, apiMessage);
   }
 });

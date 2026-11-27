@@ -31,7 +31,6 @@ async function profilePageOnStart() {
     const allPosts = document.querySelectorAll(".post");
     allPosts.forEach((post) => {
       post.addEventListener("click", () => {
-        console.log("post:", post);
         sessionStorage.setItem(
           "clickedPostTitle",
           post.firstElementChild.textContent,
@@ -73,7 +72,6 @@ newPostSubmitEdit.addEventListener("click", async () => {
     title: newPostTitleEdit.value,
     body: newPostBodyEdit.value,
   };
-  console.log(newPost);
   const postId = sessionStorage.getItem("clickedPostId");
   const editedPostMessage = await apiPUT(
     `social/posts/${postId}`,
